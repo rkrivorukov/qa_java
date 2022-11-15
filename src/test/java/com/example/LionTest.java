@@ -25,8 +25,16 @@ class LionTest {
     void constructorTest() throws Exception {
         lion = new Lion("Самец", feline);
         assertTrue(lion.hasMane);
+    }
+
+    @Test
+    void constructorTest2() throws Exception {
         lion = new Lion("Самка", feline);
         assertFalse(lion.hasMane);
+    }
+
+    @Test
+    void constructorTest3() {
         assertThrows(Exception.class, () -> lion = new Lion("abc", feline));
     }
 
