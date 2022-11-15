@@ -2,9 +2,12 @@ package com.example;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,10 +46,15 @@ class LionTest {
         assertFalse(lion.doesHaveMane());
     }
 
-    @Test
-    void getFood() throws Exception {
+    @ParameterizedTest
+    @MethodSource("data")
+    void getFood(List<String> food) throws Exception {
         lion = new Lion("Самец", feline);
-        doReturn(List.of("Животные", "Птицы", "Рыба")).when(feline).getFood("Хищник");
-        assertEquals(List.of("Животные", "Птицы", "Рыба"), lion.getFood());
+        doReturn(food).when(feline).getFood("Хищник");
+        assertEquals(food, lion.getFood());
+    }
+
+    public static Object[] data() {
+        return new Object[] {List.of("Животные", "Птицы", "Рыба"), Collections.emptyList()};
     }
 }

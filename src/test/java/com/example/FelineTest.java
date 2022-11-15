@@ -2,6 +2,8 @@ package com.example;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
@@ -24,8 +26,9 @@ class FelineTest {
         Assertions.assertEquals(1, feline.getKittens());
     }
 
-    @Test
-    void testGetKittens() {
-        Assertions.assertEquals(5, feline.getKittens(5));
+    @ParameterizedTest
+    @ValueSource(ints = {1, 2, 3, 4, 5})
+    void testGetKittens(int n) {
+        Assertions.assertEquals(n, feline.getKittens(n));
     }
 }
